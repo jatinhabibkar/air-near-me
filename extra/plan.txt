@@ -1,0 +1,18 @@
+
+
+# color
+line_color
+background_color
+icons_color
+
+
+# data
+location
+aqi
+level
+tip1
+tip2
+date
+
+
+

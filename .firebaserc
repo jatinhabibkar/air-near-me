@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "airnearme"
+  },
+  "targets": {
+    "aqindex-213c6": {
+      "hosting": {
+        "airnearme": [
+          "aqindex-213c6"
+        ]
+      }
+    }
+  }
+}

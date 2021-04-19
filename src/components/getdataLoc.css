@@ -1,0 +1,63 @@
+.container{
+    height: 500px;
+    margin-top: 20px;
+    color: white;
+}
+body{
+    background-color: black;
+}
+
+.location-name .material-icons{
+    line-height: 1;
+    font-size: 1em;
+}
+
+.location-name{
+    margin: 30px;
+    font-size:1.4em;
+    font-family:'Open Sans', sans-serif;
+    font-weight:600;
+}
+
+.aqindex{
+    margin-top: 25px;
+    font-size:6em;
+    font-family:  'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.air_p_level{
+    font-size: 3em;
+    width: 100%;
+    font-family: 'Mulish', sans-serif;
+}
+
+.icons{
+    font-size: 5em;
+    line-height:2;
+    display: inline-block;
+    vertical-align: middle;
+    align-items: center;
+    color: white;
+}
+.tips{
+    float: left;
+    font-family: 'Mulish', sans-serif;
+    text-align: left;
+}
+.rotate{
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
+.line{
+    width: 95%;
+    height: 11px;
+    background-color: white;
+    margin: 2em auto;
+    border-radius: 5px;
+}
+.time_iso{
+    font-size: 1.4em;
+
+}
