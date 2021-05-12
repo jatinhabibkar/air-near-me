@@ -19,18 +19,6 @@ const Getdata =  () => {
   "mid_color":"white"});
   const [,setGeo]=useState({"latitude":null,"longitude":null,"status":null})
   // begging for location permission
-  const handleLoc=()=>{
-    navigator.permissions.query({ name: 'geolocation' })
-          .then(res=>{
-              if(res.state ==='denied'){
-                // console.log("denied hai")
-                setTimeout(()=>{handleLoc()},1000)
-              }else{
-                // console.log("enable hai")
-                fetchdata()
-              }
-            })
-          }
 
 
 
@@ -93,8 +81,8 @@ const getdata =(aqi)=>{
 
   useEffect(()=>{
   // other code
-       handleLoc()
-   // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchdata()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
