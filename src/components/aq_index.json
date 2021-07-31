@@ -2,7 +2,7 @@
     {   "from":0,
         "to":50,
         "AQI": "0-50",
-        "Air_pollution_level": "Noice",
+        "Air_pollution_level": "Good",
         "Health_Implications": "Air quality is considered satisfactory  and air pollution poses little or no risk",
         "PM25": "None",
         "colorbg":"#63C889",
@@ -50,7 +50,7 @@
         "mid_color":"#3E2960"
     },
     {   "from":301,
-        "to":1000,
+        "to":10000,
         "AQI": "300+",
         "Air_pollution_level": "Hazardous",
         "Health_Implications": "Health alert: everyone may experience more serious health effects Everyone should avoid all outdoor exertion",
