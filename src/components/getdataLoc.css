@@ -78,6 +78,8 @@ body {
 .barline {
     border-radius: 1em;
     background-color: white;
+    width: 11px;
+    margin: 0 auto;
 }
 
 .item {
