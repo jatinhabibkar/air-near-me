@@ -4,15 +4,16 @@ import "./getdataLoc.css";
 import "./aq_index.json";
 import CreateGraph from "./graph";
 import { InfoPage } from "./InfoPage";
+import Spinner from "./Spinner";
 
-const Getdata = () => {
+const Getdata = ({setGeo,Geo,loading,setLoading}) => {
   const TOKEN = process.env.REACT_APP_AQI_API_KEY;
   const [info,setpage]=useState({
     info:false
   })
   const [responseData, setResponseData] = useState({
     alldata: null,
-    city: "turn on location and reload!",
+    city: " Air center near me  ",
     aqi: "AQI",
     location: null,
     Airlevel: "Air Quality",
@@ -23,11 +24,7 @@ const Getdata = () => {
     mid_color: "white",
     pm25average: [],
   });
-  const [, setGeo] = useState({
-    latitude: null,
-    longitude: null,
-    status: null,
-  });
+
 
   let pm25average;
 
@@ -40,10 +37,13 @@ const Getdata = () => {
     }
   };
 
+
+
   // api request
   const fetchdata = () => {
+    
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
+      navigator.geolocation.watchPosition(function (position) {
         // console.log(position)
         const urlLoctation = `https://api.waqi.info/feed/geo:${position.coords.latitude};${position.coords.longitude}/?token=${TOKEN}`;
         axios
@@ -74,15 +74,14 @@ const Getdata = () => {
           })
           .then((jsondata) => {
             setResponseData(jsondata);
-            setGeo({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              status: true,
-            });
-            // console.log(position.coords.latitude,position.coords.longitude)
+            setLoading(false)
           })
           .catch((error) => {
             // console.log(error)
+            setResponseData({
+              ...responseData,
+              city:"server issue try again later"
+            })
           });
       });
     } else {
@@ -94,7 +93,6 @@ const Getdata = () => {
 
   useEffect(() => {
     // other code
-
     fetchdata();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +105,7 @@ const Getdata = () => {
       <div className="container center">
         <div className="location-name center">
           <div className="city-name">
-            <i className="material-icons">near_me</i> {responseData.city}
+            {loading ? <Spinner/> : <i className="material-icons">near_me</i> }{responseData.city}
           </div>
         </div>
 
@@ -115,6 +113,7 @@ const Getdata = () => {
             {responseData.aqi}
             <span style={{ marginLeft: "-20px" }}>
               {" "}
+              {loading }
               <i className="material-icons">info_outline</i>
             </span>
         </div>
@@ -160,13 +159,17 @@ const Getdata = () => {
           style={{ backgroundColor: responseData.mid_color }}
         ></div>
 
-        <div className="time_iso">
-          Last Updated {new Date(responseData.acctime).toDateString()}{" "}
-          {new Date(responseData.acctime).toLocaleTimeString()}
-        </div>
+        {!loading && <div className="time_iso">
+          Last Updated <br/>{new Date(responseData.acctime).toLocaleTimeString("en-us", options)}
+        </div>}
       </div>
     );
   }
 };
+
+const options = {  
+  weekday: "short", year: "numeric", month: "short",  
+  day: "numeric", hour: "2-digit", minute: "2-digit"  
+};  
 
 export default Getdata;
