@@ -18,10 +18,14 @@ function App() {
           longitude: position.coords.longitude,
           status: true,
         });
+        setAlert(null)
       },
       function (error) {
         if (error.code === error.PERMISSION_DENIED)
-          setAlert("you denied by request :(");
+          setAlert("click below to give location access");
+        else{
+          setAlert(null)
+        }
       }
     );
   };
@@ -49,7 +53,7 @@ function App() {
               <i className="material-icons" style={{ verticalAlign: "bottom" }}>
                 location_on
               </i>
-              {" find near me"}
+              {" Turn on location"}
             </a>
           </div>
         </div>
