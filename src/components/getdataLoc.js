@@ -70,18 +70,15 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
               mid_color: ex_data.mid_color,
               pm25average: [...pm25average],
             };
-            return jsondata;
-          })
-          .then((jsondata) => {
             setResponseData(jsondata);
             setLoading(false)
           })
           .catch((error) => {
-            // console.log(error)
             setResponseData({
               ...responseData,
               city:"server issue try again later"
             })
+            setLoading(false)
           });
       });
     } else {
