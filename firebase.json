@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "aqindex",
+    "site": "airnearme",
     "public": "build",
     "ignore": [
       "firebase.json",
