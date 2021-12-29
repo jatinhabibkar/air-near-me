@@ -6,6 +6,16 @@ import CreateGraph from "./graph";
 import { InfoPage } from "./InfoPage";
 import Spinner from "./Spinner";
 
+  // json helper
+  export const getdata = (aqi) => {
+    const data = require("./aq_index.json");
+    // console.log(aqi,"here")
+    for (var x in data) {
+      if (data[x].from <= aqi && data[x].to >= aqi) return data[x];
+    }
+  };
+
+
 const Getdata = ({setGeo,Geo,loading,setLoading}) => {
   const TOKEN = process.env.REACT_APP_AQI_API_KEY;
   const [info,setpage]=useState({
@@ -28,14 +38,7 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
 
   let pm25average;
 
-  // json helper
-  const getdata = (aqi) => {
-    const data = require("./aq_index.json");
-    // console.log(aqi,"here")
-    for (var x in data) {
-      if (data[x].from <= aqi && data[x].to >= aqi) return data[x];
-    }
-  };
+
 
 
 
