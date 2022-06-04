@@ -1,16 +1,20 @@
+import './styles/App.css';
+import Getdata from './components/getdataLoc';
 import { useEffect, useState } from "react";
-import "./App.css";
-import Getdata from "./components/getdataLoc";
+import { Geojson } from './types';
+
 function App() {
-  const [Geo, setGeo] = useState({
+
+  const [Geo,setGeo] =useState<Geojson>({
     latitude: null,
     longitude: null,
     status: null,
-  });
-  const [alert, setAlert] = useState();
-  const [loading, setLoading] = useState(true);
+  })
+  const [loading,setLoading] =useState<boolean>(false)
+  const [alert, setAlert] = useState<string | null>();
 
-  const askLocation = () => {
+
+  const askLocation =() =>{
     navigator.geolocation.watchPosition(
       function (position) {
         setGeo({
@@ -28,13 +32,15 @@ function App() {
         }
       }
     );
-  };
+  }
 
   useEffect(() => {
     askLocation();
+    setLoading(true)
+
   }, []);
 
-  if (Geo.status === null) {
+if (Geo.status === null) {
     return (
       <div className="App">
         <div className="content" style={{  marginTop:"15vh",padding: "10px"}}>
@@ -64,10 +70,11 @@ function App() {
   return (
     <div className="App">
       <div className="content">
-        <Getdata Geo setGeo loading={loading} setLoading={setLoading} />
+        <Getdata setGeo={setGeo} loading={loading} setLoading={setLoading} />
       </div>
     </div>
   );
 }
 
 export default App;
+

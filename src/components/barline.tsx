@@ -1,8 +1,15 @@
 import React from "react";
-import "./getdataLoc.css";
+import "../styles/getdataLoc.css";
 
-const BarLine = (props) => {
-  function getDayNow(date) {
+type BarLineProps ={
+  min:number;
+  max:number;
+  number:number;
+  date:string;
+}
+
+const BarLine = (props:BarLineProps) => {
+  function getDayNow(date:string) {
     var arrayOfWeekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
     var data = new Date(date);

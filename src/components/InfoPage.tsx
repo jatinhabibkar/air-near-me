@@ -1,8 +1,9 @@
 import React from "react";
-import "./getdataLoc.css";
-import "./getdataLoc.css";
+import "../styles/getdataLoc.css";
+import "../styles/getdataLoc.css";
+import { ChangePageFunction } from "../types";
 
-export const InfoPage = ({ ChangePage }) => {
+export const InfoPage = ({ ChangePage } : ChangePageFunction) => {
   return (
     <div className="container">
       <div style={{ cursor: "pointer" }} onClick={ChangePage}>
@@ -82,6 +83,22 @@ export const InfoPage = ({ ChangePage }) => {
             />
           </a>
         </div>
+
+        <div className="item">
+          <a
+            href="https://aqicn.org/here/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="./socialicon/json.svg"
+              alt="moreinfo"
+              className="infoIcon"
+            />
+          </a>
+        </div>
+
+        
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ const  Spinner= () => (
       style={{ width: '30px', margin: 'auto', display: 'block' }}
       alt='Loading...'
     /></i>
-    
   </Fragment>
 );
 

@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./getdataLoc.css";
-import "./aq_index.json";
+import "../styles/getdataLoc.css";
+import datafile from "./aq_index.json";
 import CreateGraph from "./graph";
 import { InfoPage } from "./InfoPage";
 import Spinner from "./Spinner";
+import { DataFileType,JsonDataType,OptionsType,GeoJsonDispatch,GeoLoadingDispatch} from "../types";
+
 
   // json helper
-  export const getdata = (aqi) => {
-    const data = require("./aq_index.json");
-    // console.log(aqi,"here")
+  export const getdata = (aqi:number): DataFileType | undefined => {    
+    const data:DataFileType[] = datafile;
     for (var x in data) {
       if (data[x].from <= aqi && data[x].to >= aqi) return data[x];
     }
   };
 
 
-const Getdata = ({setGeo,Geo,loading,setLoading}) => {
+const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:boolean,setLoading:GeoLoadingDispatch}) => {
+
   const TOKEN = process.env.REACT_APP_AQI_API_KEY;
   const [info,setpage]=useState({
     info:false
   })
-  const [responseData, setResponseData] = useState({
-    alldata: null,
+  const [responseData, setResponseData] = useState<JsonDataType>({
     city: " Air center near me  ",
     aqi: "AQI",
+    acctime: '',
     location: null,
     Airlevel: "Air Quality",
     alert: "Health Implications",
@@ -34,12 +36,6 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
     mid_color: "white",
     pm25average: [],
   });
-
-
-  let pm25average;
-
-
-
 
 
   // api request
@@ -52,37 +48,37 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
         axios
           .get(urlLoctation)
           .then((res) => {
-            // console.log("location script")
-            const temp = res.data.data;
+            const {data : temp} = res.data;
             // fetch info from json
             const ex_data = getdata(temp.aqi);
             // change whole body color background
-            document.body.style.background = ex_data.colorbg;
+            document.body.style.background = ex_data!.colorbg;
             // graph data
-            pm25average = temp.forecast.daily.pm25;
-            const jsondata = {
+            const {pm25 : pm25average} = temp.forecast.daily;
+            const jsondata: JsonDataType = {
               city: temp.city.name,
               aqi: temp.aqi,
-              location_co: temp.city.geo,
+              location: temp.city.geo,
               acctime: temp.time.s,
-              Airlevel: ex_data.Air_pollution_level,
-              alert: ex_data.Health_Implications,
-              alert_tip: ex_data.PM25,
-              color_bg: ex_data.colorbg,
-              dark_color: ex_data.dark_color,
-              mid_color: ex_data.mid_color,
-              pm25average: [...pm25average],
+              Airlevel: ex_data!.Air_pollution_level,
+              alert: ex_data!.Health_Implications,
+              alert_tip: ex_data!.PM25,
+              color_bg: ex_data!.colorbg,
+              dark_color: ex_data!.dark_color,
+              mid_color: ex_data!.mid_color,
+              pm25average,
             };
             setResponseData(jsondata);
             setLoading(false)
           })
-          .catch((error) => {
+          .catch(() => {
             setResponseData({
               ...responseData,
               city:"server issue try again later"
             })
             setLoading(false)
           });
+          
       });
     } else {
       setGeo({ latitude: null, longitude: null, status: false });
@@ -159,7 +155,7 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
           style={{ backgroundColor: responseData.mid_color }}
         ></div>
 
-        {!loading && <div className="time_iso">
+        {!loading && responseData.acctime &&  <div className="time_iso">
           Last Updated <br/>{new Date(responseData.acctime).toLocaleTimeString("en-us", options)}
         </div>}
       </div>
@@ -167,7 +163,9 @@ const Getdata = ({setGeo,Geo,loading,setLoading}) => {
   }
 };
 
-const options = {  
+
+
+const options: OptionsType = {  
   weekday: "short", year: "numeric", month: "short",  
   day: "numeric", hour: "2-digit", minute: "2-digit"  
 };  
