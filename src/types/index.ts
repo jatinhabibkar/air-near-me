@@ -1,4 +1,3 @@
-import { type } from "os";
 import React from "react";
 
 export type ChangePageFunction = {
@@ -14,7 +13,7 @@ export interface Geojson {
 export type GeoJsonDispatch = React.Dispatch<React.SetStateAction<Geojson>>;
 export type GeoLoadingDispatch = React.Dispatch<React.SetStateAction<boolean>>;
 
-export type DataFileType = {
+export interface DataFileType {
   from: number;
   to: number;
   AQI: string;
@@ -26,7 +25,7 @@ export type DataFileType = {
   mid_color: string;
 };
 
-export type JsonDataType = {
+export interface JsonDataType {
   city: string;
   aqi: string;
   location: string | null;
@@ -40,12 +39,12 @@ export type JsonDataType = {
   pm25average: PM25Type[];
 };
 
-export type PM25Type = {
+export interface PM25Type {
   avg: number;
   day: string;
   max: number;
   min: number;
 };
-export type OptionsType = {
+export interface OptionsType {
   [key: string]: string;
 };
