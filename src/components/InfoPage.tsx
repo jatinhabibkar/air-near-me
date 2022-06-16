@@ -3,7 +3,7 @@ import "../styles/getdataLoc.css";
 import "../styles/getdataLoc.css";
 import { ChangePageFunction } from "../types";
 
-export const InfoPage = ({ ChangePage } : ChangePageFunction) => {
+export const InfoPage = ({ ChangePage }: ChangePageFunction) => {
   return (
     <div className="container">
       <div style={{ cursor: "pointer" }} onClick={ChangePage}>
@@ -98,7 +98,7 @@ export const InfoPage = ({ ChangePage } : ChangePageFunction) => {
           </a>
         </div>
 
-        
+
       </div>
     </div>
   );

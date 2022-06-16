@@ -1,9 +1,9 @@
 import "../styles/getdataLoc.css";
-import BarLine from "./barline";
+import BarLine from "./BarLine";
 import { PM25Type } from "../types";
 
-const CreateGraph = (props:{
-  gdata:PM25Type[]
+const CreateGraph = (props: {
+  gdata: PM25Type[]
 }) => {
   var gdata = props.gdata;
 

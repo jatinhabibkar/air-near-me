@@ -1,4 +1,4 @@
-import {getdata} from "../components/getdataLoc";
+import {getdata} from "../components/Home";
 
 test("check color", () => {
   expect(getdata(50)!.colorbg).toBe("#63C889");

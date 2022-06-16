@@ -2,26 +2,26 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/getdataLoc.css";
 import datafile from "./aq_index.json";
-import CreateGraph from "./graph";
+import CreateGraph from "./CreateGraph";
 import { InfoPage } from "./InfoPage";
 import Spinner from "./Spinner";
-import { DataFileType,JsonDataType,OptionsType,GeoJsonDispatch,GeoLoadingDispatch} from "../types";
+import { DataFileType, JsonDataType, OptionsType, GeoJsonDispatch, GeoLoadingDispatch } from "../types";
 
 
-  // json helper
-  export const getdata = (aqi:number): DataFileType | undefined => {    
-    const data:DataFileType[] = datafile;
-    for (var x in data) {
-      if (data[x].from <= aqi && data[x].to >= aqi) return data[x];
-    }
-  };
+// json helper
+export const getdata = (aqi: number): DataFileType | undefined => {
+  const data: DataFileType[] = datafile;
+  for (var x in data) {
+    if (data[x].from <= aqi && data[x].to >= aqi) return data[x];
+  }
+};
 
 
-const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:boolean,setLoading:GeoLoadingDispatch}) => {
+const Home = ({ setGeo, loading, setLoading }: { setGeo: GeoJsonDispatch, loading: boolean, setLoading: GeoLoadingDispatch }) => {
 
   const TOKEN = process.env.REACT_APP_AQI_API_KEY;
-  const [info,setpage]=useState({
-    info:false
+  const [info, setpage] = useState({
+    info: false
   })
   const [responseData, setResponseData] = useState<JsonDataType>({
     city: " Air center near me  ",
@@ -40,7 +40,7 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
 
   // api request
   const fetchdata = () => {
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         // console.log(position)
@@ -48,13 +48,13 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
         axios
           .get(urlLoctation)
           .then((res) => {
-            const {data : temp} = res.data;
+            const { data: temp } = res.data;
             // fetch info from json
             const ex_data = getdata(temp.aqi);
             // change whole body color background
             document.body.style.background = ex_data!.colorbg;
             // graph data
-            const {pm25 : pm25average} = temp.forecast.daily;
+            const { pm25: pm25average } = temp.forecast.daily;
             const jsondata: JsonDataType = {
               city: temp.city.name,
               aqi: temp.aqi,
@@ -74,21 +74,21 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
           .catch(() => {
             setResponseData({
               ...responseData,
-              city:"server issue try again later"
+              city: "server issue try again later"
             })
             setLoading(false)
           });
-          
+
       });
     } else {
       setGeo({ latitude: null, longitude: null, status: false });
     }
   };
 
-  const ChangePage = () =>setpage({"info":!info.info})
+  const ChangePage = () => setpage({ "info": !info.info })
 
   useEffect(() => {
-    // other code
+
     fetchdata();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,19 +99,20 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
   } else {
     return (
       <div className="container center">
+        
         <div className="location-name center">
           <div className="city-name">
-            {loading ? <Spinner/> : <i className="material-icons">near_me</i> }{responseData.city}
+            {loading ? <Spinner /> : <i className="material-icons">near_me</i>}{responseData.city}
           </div>
         </div>
 
         <div className="aqindex" onClick={ChangePage}>
-            {responseData.aqi}
-            <span style={{ marginLeft: "-20px" }}>
-              {" "}
-              {loading }
-              <i className="material-icons">info_outline</i>
-            </span>
+          {responseData.aqi}
+          <span style={{ marginLeft: "-20px" }}>
+            {" "}
+            {loading}
+            <i className="material-icons">info_outline</i>
+          </span>
         </div>
         <div className="air_p_level">{responseData.Airlevel}</div>
 
@@ -155,8 +156,8 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
           style={{ backgroundColor: responseData.mid_color }}
         ></div>
 
-        {!loading && responseData.acctime &&  <div className="time_iso">
-          Last Updated <br/>{new Date(responseData.acctime).toLocaleTimeString("en-us", options)}
+        {!loading && responseData.acctime && <div className="time_iso">
+          Last Updated <br />{new Date(responseData.acctime).toLocaleTimeString("en-us", options)}
         </div>}
       </div>
     );
@@ -165,9 +166,9 @@ const Getdata = ({setGeo,loading,setLoading} :{setGeo:GeoJsonDispatch,loading:bo
 
 
 
-const options: OptionsType = {  
-  weekday: "short", year: "numeric", month: "short",  
-  day: "numeric", hour: "2-digit", minute: "2-digit"  
-};  
+const options: OptionsType = {
+  weekday: "short", year: "numeric", month: "short",
+  day: "numeric", hour: "2-digit", minute: "2-digit"
+};
 
-export default Getdata;
+export default Home;

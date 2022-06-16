@@ -1,20 +1,20 @@
 import './styles/App.css';
-import Getdata from './components/getdataLoc';
+import Home from './components/Home';
 import { useEffect, useState } from "react";
 import { Geojson } from './types';
 
 function App() {
 
-  const [Geo,setGeo] =useState<Geojson>({
+  const [Geo, setGeo] = useState<Geojson>({
     latitude: null,
     longitude: null,
     status: null,
   })
-  const [loading,setLoading] =useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [alert, setAlert] = useState<string | null>();
 
 
-  const askLocation =() =>{
+  const askLocation = () => {
     navigator.geolocation.watchPosition(
       function (position) {
         setGeo({
@@ -27,7 +27,7 @@ function App() {
       function (error) {
         if (error.code === error.PERMISSION_DENIED)
           setAlert("click below to give location access");
-        else{
+        else {
           setAlert(null)
         }
       }
@@ -40,10 +40,10 @@ function App() {
 
   }, []);
 
-if (Geo.status === null) {
+  if (Geo.status === null) {
     return (
       <div className="App">
-        <div className="content" style={{  marginTop:"15vh",padding: "10px"}}>
+        <div className="content" style={{ marginTop: "15vh", padding: "10px" }}>
           <div className="container center" >
             <h3>Let me check the nearest Air quality Center</h3>
             {alert && <p>{alert}</p>}
@@ -51,7 +51,7 @@ if (Geo.status === null) {
             <a
               href="/"
               className="waves-effect waves-light btn white black-text "
-              onClick={(e)=>{
+              onClick={(e) => {
                 e.preventDefault()
                 askLocation()
               }}
@@ -70,7 +70,7 @@ if (Geo.status === null) {
   return (
     <div className="App">
       <div className="content">
-        <Getdata setGeo={setGeo} loading={loading} setLoading={setLoading} />
+        <Home setGeo={setGeo} loading={loading} setLoading={setLoading} />
       </div>
     </div>
   );

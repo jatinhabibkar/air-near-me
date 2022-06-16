@@ -23,7 +23,7 @@ export interface DataFileType {
   colorbg: string;
   dark_color: string;
   mid_color: string;
-};
+}
 
 export interface JsonDataType {
   city: string;
@@ -37,14 +37,14 @@ export interface JsonDataType {
   dark_color: string;
   mid_color: string;
   pm25average: PM25Type[];
-};
+}
 
 export interface PM25Type {
   avg: number;
   day: string;
   max: number;
   min: number;
-};
+}
 export interface OptionsType {
   [key: string]: string;
-};
+}
