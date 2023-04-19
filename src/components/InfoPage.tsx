@@ -30,7 +30,7 @@ export const InfoPage = ({ ChangePage }: ChangePageFunction) => {
       <div className="flexBox space-top">
         <div className="item">
           <a
-            href="https://github.com/JATIN2111999"
+            href="https://github.com/jatinhabibkar"
             target="_blank"
             rel="noreferrer"
           >
