@@ -37,7 +37,6 @@ function App() {
   useEffect(() => {
     askLocation();
     setLoading(true)
-
   }, []);
 
   if (Geo.status === null) {
